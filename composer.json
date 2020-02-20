@@ -1,0 +1,21 @@
+{
+    "name": "keironlowe/chirp",
+    "description": "A simple and lightweight WordPress library for working with the Twitter API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Keiron Lowe",
+            "email": "keiron@keironlowe.co.uk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "kitetail/zttp": "^0.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "KeironLowe\\Chirp\\": "src/"
+        }
+    }
+}
