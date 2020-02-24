@@ -6,14 +6,6 @@ class Chirp
 
 
     /**
-     * The authorization keys and tokens
-     *
-     * @var Credentials
-     */
-    private $credentials;
-
-
-    /**
      * Creates a new instance of Chirp.
      *
      * @param array $credentials
@@ -29,13 +21,14 @@ class Chirp
      *
      * @param integer $tweetId
      * @param array $options
-     * @return void
+     * @return Tweet
      */
-    public function getTweet(int $tweetId, array $options = [])
+    public function getTweet(int $tweetId, array $options = []): Tweet
     {
-        return $this->get('statuses/show', [
-            'id' => $tweetId
-        ]);
+        $parameters = array_merge(['id' => $tweetId, 'tweet_mode' => 'extended'], $options);
+        $response   = $this->get('statuses/show', $parameters);
+
+        return new Tweet($response->json());
     }
 
 

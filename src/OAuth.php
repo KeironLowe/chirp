@@ -18,7 +18,7 @@ class OAuth
     {
 
         // Get the parameters and append the signature
-        $hashParameters                    = OAuth::getSignatureParameters($creds->getConsumerKey(), $creds->getAccessToken());
+        $hashParameters                    = OAuth::getSignatureParameters($creds->getConsumerKey(), $creds->getAccessToken(), $options);
         $hashParameters['oauth_signature'] = static::generateAuthorizationSignature('GET', $requestURL, $options, $creds);
 
         // Generate the header string
@@ -44,7 +44,7 @@ class OAuth
     {
 
         // Generate the OAuth parameter hash.
-        $hashParameters = OAuth::getSignatureParameters($creds->getConsumerKey(), $creds->getAccessToken());
+        $hashParameters = OAuth::getSignatureParameters($creds->getConsumerKey(), $creds->getAccessToken(), $options);
         $parametersHash = http_build_query($hashParameters);
 
         // Generate the base and key
@@ -63,16 +63,23 @@ class OAuth
      * @param string $accessToken
      * @return array
      */
-    public static function getSignatureParameters(string $consumerKey, string $accessToken): array
+    public static function getSignatureParameters(string $consumerKey, string $accessToken, array $options): array
     {
-        return [
+
+        // Merge the default parameters with the passed options
+        $parameters = array_merge([
             'oauth_consumer_key'     => $consumerKey,
             'oauth_nonce'            => time(),
             'oauth_signature_method' => 'HMAC-SHA1',
             'oauth_timestamp'        => time(),
             'oauth_token'            => $accessToken,
             'oauth_version'          => '1.0'
-        ];
+        ], $options);
+
+        // Sort them alphabetically
+        ksort($parameters);
+
+        return $parameters;
     }
 
 

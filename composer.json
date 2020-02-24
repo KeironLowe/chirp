@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "kitetail/zttp": "^0.6.0"
+        "kitetail/zttp": "^0.6.0",
+        "nesbot/carbon": "^2.30"
     },
     "autoload": {
         "psr-4": {

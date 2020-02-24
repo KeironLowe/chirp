@@ -1,6 +1,7 @@
 <?php
 namespace KeironLowe\Chirp;
 
+use Zttp\Zttp;
 use Zttp\ZttpResponse;
 
 class Request
@@ -38,15 +39,15 @@ class Request
      *
      * @param string $endpoint
      * @param array $options
-     * @return void
+     * @return ZttpResponse
      */
-    public function get(string $endpoint, array $options)
+    public function get(string $endpoint, array $options): ZttpResponse
     {
         $requestURL = $this->getEndpointUrl($endpoint);
 
         return Zttp::withHeaders([
             'Authorization' => OAuth::generateAuthorizationHeader('GET', $requestURL, $options, static::$credentials)
-        ])->get($requestURL);
+        ])->get($requestURL, $options);
     }
 
 
