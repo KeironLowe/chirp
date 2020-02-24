@@ -1,17 +1,8 @@
 <?php
 namespace KeironLowe\Chirp;
 
-use Zttp\Zttp;
-use Zttp\PendingZttpRequest;
-
 class Chirp
 {
-
-
-    /**
-     * The base url for any API requests.
-     */
-    const API_BASE = 'https://api.twitter.com/1.1/';
 
 
     /**
@@ -29,19 +20,34 @@ class Chirp
      */
     public function __construct(array $credentials)
     {
-        $this->credentials = new Credentials($credentials);
-
-        var_dump($this->get('statuses/user_timeline')->json());
+        Request::setCredentials($credentials);
     }
 
 
-    private function get(string $endPoint, array $options = [])
+    /**
+     * Returns a single Tweet.
+     *
+     * @param integer $tweetId
+     * @param array $options
+     * @return void
+     */
+    public function getTweet(int $tweetId, array $options = [])
     {
-        $requestURL          = self::API_BASE . $endPoint . '.json';
-        $authorizationHeader = OAuth::generateAuthorizationHeader('GET', $requestURL, $options, $this->credentials);
+        return $this->get('statuses/show', [
+            'id' => $tweetId
+        ]);
+    }
 
-        return Zttp::withHeaders([
-            'Authorization' => $authorizationHeader
-        ])->get($requestURL);
+
+    /**
+     * Performs a GET request to the specified endpoint.
+     *
+     * @param string $endpoint
+     * @param array $options
+     * @return void
+     */
+    private function get(string $endpoint, array $options = [])
+    {
+        return (new Request())->get($endpoint, $options);
     }
 }
