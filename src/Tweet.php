@@ -10,7 +10,7 @@ class Tweet
     /**
      * The raw data for the Tweet.
      *
-     * @var array
+     * @var array<mixed>
      */
     private $data;
 
@@ -18,7 +18,7 @@ class Tweet
     /**
      * Creates a new instance of Tweet.
      *
-     * @param array $tweet
+     * @param array<mixed> $tweet
      */
     public function __construct(array $tweet)
     {
@@ -29,7 +29,7 @@ class Tweet
     /**
      * Returns the created date.
      *
-     * @return void
+     * @return Carbon
      */
     public function createdDate(): Carbon
     {
@@ -73,7 +73,7 @@ class Tweet
     /**
      * Returns the text range array.
      *
-     * @return array
+     * @return array<int>
      */
     public function textRange(): array
     {

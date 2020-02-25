@@ -25,7 +25,7 @@ class Request
     /**
      * Sets the credentials for this class.
      *
-     * @param array $credentials
+     * @param array<string> $credentials
      * @return void
      */
     public static function setCredentials(array $credentials): void
@@ -38,7 +38,7 @@ class Request
      * Sends a GET request to the specified endpoint.
      *
      * @param string $endpoint
-     * @param array $options
+     * @param array<mixed> $options
      * @return ZttpResponse
      */
     public function get(string $endpoint, array $options): ZttpResponse

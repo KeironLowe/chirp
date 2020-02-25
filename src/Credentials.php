@@ -40,7 +40,7 @@ class Credentials
     /**
      * Creates a new instance of Credentials.
      *
-     * @param array $credentials
+     * @param array<string> $credentials
      */
     public function __construct(array $credentials)
     {

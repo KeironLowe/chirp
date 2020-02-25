@@ -10,7 +10,7 @@ class OAuth
      *
      * @param string $method
      * @param string $requestURL
-     * @param array $options
+     * @param array<mixed> $options
      * @param Credentials $creds
      * @return string
      */
@@ -36,11 +36,11 @@ class OAuth
      *
      * @param string $method
      * @param string $requestURL
-     * @param array $options
+     * @param array<mixed> $options
      * @param Credentials $creds
-     * @return void
+     * @return string
      */
-    public static function generateAuthorizationSignature(string $method, string $requestURL, array $options, Credentials $creds)
+    public static function generateAuthorizationSignature(string $method, string $requestURL, array $options, Credentials $creds): string
     {
 
         // Generate the OAuth parameter hash.
@@ -56,12 +56,14 @@ class OAuth
         return rawurlencode($signature);
     }
 
+
     /**
      * Returns an array parameters for the OAuth signature.
      *
      * @param string $consumerKey
      * @param string $accessToken
-     * @return array
+     * @param array<mixed> $options
+     * @return array<mixed>
      */
     public static function getSignatureParameters(string $consumerKey, string $accessToken, array $options): array
     {

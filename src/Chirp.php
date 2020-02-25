@@ -1,6 +1,8 @@
 <?php
 namespace KeironLowe\Chirp;
 
+use Zttp\ZttpResponse;
+
 class Chirp
 {
 
@@ -8,7 +10,7 @@ class Chirp
     /**
      * Creates a new instance of Chirp.
      *
-     * @param array $credentials
+     * @param array<string> $credentials
      */
     public function __construct(array $credentials)
     {
@@ -20,7 +22,7 @@ class Chirp
      * Returns a single Tweet.
      *
      * @param integer $tweetId
-     * @param array $options
+     * @param array<mixed> $options
      * @return Tweet
      */
     public function getTweet(int $tweetId, array $options = []): Tweet
@@ -36,8 +38,8 @@ class Chirp
      * Performs a GET request to the specified endpoint.
      *
      * @param string $endpoint
-     * @param array $options
-     * @return void
+     * @param array<mixed> $options
+     * @return ZttpResponse
      */
     private function get(string $endpoint, array $options = [])
     {
