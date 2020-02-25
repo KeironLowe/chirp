@@ -5,3 +5,5 @@ parameters:
     level: 8
     paths:
         - src
+    ignoreErrors:
+        - '#Call to an undefined static method Zttp\\Zttp::withHeaders()#'
