@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace KeironLowe\Chirp;
 
 class OAuth
@@ -19,7 +20,7 @@ class OAuth
 
         // Get the parameters and append the signature
         $hashParameters                    = OAuth::getSignatureParameters($creds->getConsumerKey(), $creds->getAccessToken(), $options);
-        $hashParameters['oauth_signature'] = static::generateAuthorizationSignature('GET', $requestURL, $options, $creds);
+        $hashParameters['oauth_signature'] = OAuth::generateAuthorizationSignature('GET', $requestURL, $options, $creds);
 
         // Generate the header string
         $oAuthHeader = '';
@@ -70,12 +71,12 @@ class OAuth
 
         // Merge the default parameters with the passed options
         $parameters = array_merge([
+            'oauth_token'            => $accessToken,
             'oauth_consumer_key'     => $consumerKey,
             'oauth_nonce'            => time(),
-            'oauth_signature_method' => 'HMAC-SHA1',
             'oauth_timestamp'        => time(),
-            'oauth_token'            => $accessToken,
-            'oauth_version'          => '1.0'
+            'oauth_version'          => '1.0',
+            'oauth_signature_method' => 'HMAC-SHA1',
         ], $options);
 
         // Sort them alphabetically

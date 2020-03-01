@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit bootstrap="./tests/autoload.php" colors="true" printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinter">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>./tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="PHPUNIT_PRETTY_PRINT_PROGRESS" value="true" />
+    </php>
+</phpunit>

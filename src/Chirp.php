@@ -1,10 +1,28 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace KeironLowe\Chirp;
 
 use Zttp\ZttpResponse;
+use KeironLowe\Chirp\Objects\Tweet;
 
 class Chirp
 {
+
+
+    /**
+     * The API credentials
+     *
+     * @var Credentials
+     */
+    private $credentials;
+
+
+    /**
+     * The object cache.
+     *
+     * @var array<mixed>
+     */
+    protected $cache;
 
 
     /**
@@ -14,23 +32,18 @@ class Chirp
      */
     public function __construct(array $credentials)
     {
-        Request::setCredentials($credentials);
+        $this->credentials = new Credentials($credentials);
     }
 
 
     /**
-     * Returns a single Tweet.
+     * Returns a new Lists instance.
      *
-     * @param integer $tweetId
-     * @param array<mixed> $options
-     * @return Tweet
+     * @return Lists
      */
-    public function getTweet(int $tweetId, array $options = []): Tweet
+    public function lists(): Lists
     {
-        $parameters = array_merge(['id' => $tweetId, 'tweet_mode' => 'extended'], $options);
-        $response   = $this->get('statuses/show', $parameters);
-
-        return new Tweet($response->json());
+        return new Lists($this->credentials->toArray());
     }
 
 
@@ -41,8 +54,45 @@ class Chirp
      * @param array<mixed> $options
      * @return ZttpResponse
      */
-    private function get(string $endpoint, array $options = [])
+    protected function get(string $endpoint, array $options = []): ZttpResponse
     {
-        return (new Request())->get($endpoint, $options);
+        return $this->request()->get($endpoint, $options);
+    }
+
+
+    /**
+     * Returns a new instance of Request with the correct credentials.
+     *
+     * @return Request
+     */
+    private function request(): Request
+    {
+        return new Request($this->credentials);
+    }
+
+
+    /**
+     * Returns an item from the cache.
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function getFromCache(string $id)
+    {
+        return $this->cache[$id] ?? null;
+    }
+
+
+    /**
+     * Adds the data to the cache.
+     *
+     * @param string $id
+     * @param mixed $data
+     * @return mixed
+     */
+    protected function addToCache(string $id, $data)
+    {
+        $this->cache[$id] = $data;
+        return $data;
     }
 }

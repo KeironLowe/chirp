@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace KeironLowe\Chirp;
 
 use Zttp\Zttp;
@@ -19,18 +20,17 @@ class Request
      *
      * @var Credentials
      */
-    private static $credentials;
+    private $credentials;
 
 
     /**
-     * Sets the credentials for this class.
+     * Creates a new instance of Request.
      *
-     * @param array<string> $credentials
-     * @return void
+     * @param Credentials $credentials
      */
-    public static function setCredentials(array $credentials): void
+    public function __construct(Credentials $credentials)
     {
-        static::$credentials = new Credentials($credentials);
+        $this->credentials = $credentials;
     }
 
 
@@ -46,7 +46,7 @@ class Request
         $requestURL = $this->getEndpointUrl($endpoint);
 
         return Zttp::withHeaders([
-            'Authorization' => OAuth::generateAuthorizationHeader('GET', $requestURL, $options, static::$credentials)
+            'Authorization' => OAuth::generateAuthorizationHeader('GET', $requestURL, $options, $this->credentials)
         ])->get($requestURL, $options);
     }
 

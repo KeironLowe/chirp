@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace KeironLowe\Chirp;
 
 class Credentials
@@ -92,5 +93,21 @@ class Credentials
     public function getAccessSecret(): string
     {
         return $this->accessSecret;
+    }
+
+
+    /**
+     * Returns the credentials as an array.
+     *
+     * @return array<string>
+     */
+    public function toArray(): array
+    {
+        return [
+            'apiKey'       => $this->getConsumerKey(),
+            'apiSecret'    => $this->getConsumerSecret(),
+            'accessToken'  => $this->getAccessToken(),
+            'accessSecret' => $this->getAccessSecret()
+        ];
     }
 }
