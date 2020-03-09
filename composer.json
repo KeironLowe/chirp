@@ -19,7 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "KeironLowe\\Chirp\\": ["src/", "tests/"]
+            "Chirp\\": ["src/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Chirp\\": ["tests/"]
         }
     },
     "scripts": {
