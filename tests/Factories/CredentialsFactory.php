@@ -33,6 +33,6 @@ class CredentialsFactory
      */
     public static function createInstance(string $valuesPrefix = ''): Credentials
     {
-        return Credentials::create(self::createArray($valuesPrefix));
+        return Credentials::factory(self::createArray($valuesPrefix));
     }
 }

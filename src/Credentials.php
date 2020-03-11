@@ -112,7 +112,7 @@ class Credentials
      * @param array<string>|Credentials $credentials
      * @return Credentials
      */
-    public static function create($credentials): Credentials
+    public static function factory($credentials): Credentials
     {
         if (!Credentials::areInAValidFormat($credentials)) {
             throw new InvalidArgumentException('Provided credentials are not in a valid format');

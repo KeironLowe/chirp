@@ -20,7 +20,7 @@ final class CredentialsTest extends TestCase
     public function testExceptionThrownForInvalidCredentialsType(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        Credentials::create('');
+        Credentials::factory('');
     }
 
 
@@ -33,7 +33,7 @@ final class CredentialsTest extends TestCase
     public function testExceptionThrownForMissingCredentials(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        Credentials::create([]);
+        Credentials::factory([]);
     }
 
 
