@@ -52,7 +52,7 @@ class Chirp
      * @param array<mixed> $params
      * @return Response
      */
-    protected function get(string $endpoint, array $params): Response
+    public function get(string $endpoint, array $params = []): Response
     {
         return $this->http->get($endpoint, $params);
     }

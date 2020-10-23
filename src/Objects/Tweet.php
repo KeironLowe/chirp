@@ -4,7 +4,7 @@ namespace Chirp\Objects;
 
 use Tightenco\Collect\Support\Collection;
 
-class Tweet
+class Tweet extends TwitterObject
 {
 
 
